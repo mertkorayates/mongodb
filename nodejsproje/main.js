@@ -4,7 +4,7 @@ const app = express();
 
 var User = require("./mongodb-test/schema.js")
 
-mongoose.connect("mongodb+srv://sunucu:sanane914@cluster0.utxug.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",(err)=>{
+mongoose.connect("mongodb+srv://mertPc:sanane914@cluster0.utxug.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",(err)=>{
     if(!err){
         console.log("connected")
     }else{
@@ -31,18 +31,13 @@ app.get("/ekle",(req,res)=>{
 
 
 
-app.get("/ekle/:isim/:soyad/:yas",(req,res)=>{
-    var deneme2 = new User({
-        ad : req.params.isim,
-        soyad : req.params.soyad,
-        yas : req.params.yas,
-    })
-
-    deneme2.save().then((result)=>{
-        res.send(result)
-    }).catch((err)=>{
-        console.log("Hataa")
-    })
+app.get("/ekle/:isim",(req,res)=>{
+        console.log(req.params.isim );
+        User.find({ad: req.params.isim }).then((result)=>{
+            res.send(result);
+        }).catch((err)=>{
+            console.log("errr")
+        })
 })
 
 
