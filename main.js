@@ -31,13 +31,12 @@ app.get("/ekle",(req,res)=>{
 
 
 
-app.get("/ekle/:isim",(req,res)=>{
-        console.log(req.params.isim );
-        User.find({ad: req.params.isim }).then((result)=>{
-            res.send(result);
-        }).catch((err)=>{
-            console.log("errr")
-        })
+app.get("/ekle/:isim/:soyad/:yas",(req,res)=>{
+    var deneme2 = new User({
+        ad : req.params.isim,
+        soyad : req.params.soyad,
+        yas : req.params.yas,
+    })
 })
 
 
