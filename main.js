@@ -37,6 +37,12 @@ app.get("/ekle/:isim/:soyad/:yas",(req,res)=>{
         soyad : req.params.soyad,
         yas : req.params.yas,
     })
+
+    deneme2.save().then((result)=>{
+        res.send(result)
+    }).catch((err)=>{
+        console.log("Hataa")
+    })
 })
 
 
