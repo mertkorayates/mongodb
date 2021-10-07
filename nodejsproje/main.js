@@ -4,7 +4,7 @@ const app = express();
 
 var User = require("./mongodb-test/schema.js")
 
-mongoose.connect("mongodb+srv://mertPc:sanane914@cluster0.utxug.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",(err)=>{
+mongoose.connect("mongodb://127.0.0.1:27017/nodejsproje?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false",(err)=>{
     if(!err){
         console.log("connected")
     }else{
