@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema; 
 
 var userSchema = new Schema({
-    ad : String,
-    soyad : String,
-    yas : String,
+    mac : String,
+    adc : [String],
 })
 
 var User = mongoose.model("espnode",userSchema);
