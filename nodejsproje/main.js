@@ -6,6 +6,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var User = require("./mongodb-test/schema.js");
 app.use(bodyParser.json());
 var id;
+var db;
 mongoose.connect("mongodb://127.0.0.1:27017/nodejsproje?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false",(err)=>{
     if(!err){
         console.log("connected")
@@ -81,6 +82,8 @@ app.post("/espekle",(req,res)=>{
                 var user1 = new User({
                     mac : req.body.mac,
                     adc : [req.body.adc],
+                    value : req.body.value,
+                
                 })
                 user1.save((err)=>{
                     if(err){
@@ -115,6 +118,7 @@ function adcSave(req,res) {
             res.sendStatus(404)
         }else{
            data.adc.push(req.body.adc)
+           data.value = req.body.adc;
     
             data.save((err)=>{
                 if(!err){

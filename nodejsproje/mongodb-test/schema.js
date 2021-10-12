@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 var userSchema = new Schema({
     mac : String,
     adc : [String],
+    value : String,
 })
 
 var User = mongoose.model("espnode",userSchema);
