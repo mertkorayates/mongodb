@@ -117,7 +117,9 @@ function adcSave(req,res) {
             console.log("findById ERROR")
             res.sendStatus(404)
         }else{
+           /*
            data.adc.push(req.body.adc)
+           */
            data.value = req.body.adc;
     
             data.save((err)=>{
