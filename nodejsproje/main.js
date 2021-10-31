@@ -81,7 +81,7 @@ app.post("/espekle",(req,res)=>{
             }).catch((err)=>{
                 var user1 = new User({
                     mac : req.body.mac,
-                    adc : [req.body.adc],
+                    
                     value : req.body.value,
                 
                 })
