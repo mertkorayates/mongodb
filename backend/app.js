@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/yenidatabase', {
+mongoose.connect('mongodb://127.0.0.1:27017/proofons', {
   useNewUrlParser: true
 });
 
@@ -65,7 +65,7 @@ Kullanici.create({ adi: req.body.adi, soyadi: req.body.soyadi, yasi:req.body.yas
 })
 
 
-app.post("/login",(req,res)=>{
+app.post("/login",(req,res,next)=>{
     try{
       Kullanici.find({eposta:req.body.eposta},(err,kullanicilar)=>{
         console.log("Gelen Degerler = "+kullanicilar[0]["sifre"])
@@ -73,8 +73,10 @@ app.post("/login",(req,res)=>{
         if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
             console.log("GIRIS YAPILDI");
             res.sendStatus(200)
+            next();
         }else{
           res.sendStatus(404)
+          next();
         }
       })
 
