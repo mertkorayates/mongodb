@@ -71,8 +71,7 @@ app.post("/login",(req,res,next)=>{
         console.log("Gelen Degerler = "+kullanicilar[0]["sifre"])
         if (err) throw err;
         if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
-            console.log("GIRIS YAPILDI");
-            res.sendStatus(200)
+            res.send(kullanicilar)
             next();
         }else{
           res.sendStatus(404)
