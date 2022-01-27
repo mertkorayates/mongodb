@@ -26,7 +26,7 @@ let Kullanici = mongoose.model('kullanici', kullaniciSchema);
 
 
 
-app.post('/register', (req, res,next) => {
+app.get('/register', (req, res,next) => {
   try{
 
     Kullanici.find({ eposta: req.body.eposta}, (err, kullanicilar) => {
@@ -65,7 +65,7 @@ Kullanici.create({ adi: req.body.adi, soyadi: req.body.soyadi, yasi:req.body.yas
 })
 
 
-app.post("/login",(req,res,next)=>{
+app.get("/login",(req,res,next)=>{
     try{
       Kullanici.find({eposta:req.body.eposta},(err,kullanicilar)=>{
         if (err) throw err;
