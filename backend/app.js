@@ -71,7 +71,7 @@ app.post("/login",(req,res,next)=>{
         if (err) throw err;
          
           if(kullanicilar[0]){
-            if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
+            if(kullanicilar[0]["eposta"] === req.body.eposta && kullanicilar[0]["sifre"] === req.body.sifre ){
               res.send(kullanicilar)
               next();
           }
