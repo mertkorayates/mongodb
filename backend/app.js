@@ -69,10 +69,14 @@ app.post("/login",(req,res,next)=>{
     try{
       Kullanici.find({eposta:req.body.eposta},(err,kullanicilar)=>{
         if (err) throw err;
-        if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
+        if(kullanicilar != null){
+          if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
             res.send(kullanicilar)
             next();
-        }else{
+        }
+        }
+    
+        else{
           res.sendStatus(400)
           next();
         }
