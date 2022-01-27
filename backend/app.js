@@ -68,12 +68,8 @@ Kullanici.create({ adi: req.body.adi, soyadi: req.body.soyadi, yasi:req.body.yas
 app.post("/login",(req,res,next)=>{
     try{
       Kullanici.find({eposta:req.body.eposta},(err,kullanicilar)=>{
-        if (err){
-          res.sendStatus(400)
-          next();
-          throw err;
-        }
-        if(kullanicilar != null){
+        if (err) throw err;
+        if(kullanicilar[0] != null){
           if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
             res.send(kullanicilar)
             next();
