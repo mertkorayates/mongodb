@@ -33,13 +33,13 @@ app.post('/register', (req, res,next) => {
         if (err) throw err;
 
         if(kullanicilar[0] ){
-          res.sendStatus(404)
+            res.send("kullanici zaten kayitli")
             next();
         } else{
             Kullanici.create({ kullaniciAd: req.body.kullaniciAd, eposta: req.body.eposta, numara:req.body.numara, sifre: req.body.sifre }, (err, result) => {
                 if (err) throw err;
                 console.log(result);
-                res.sendStatus(200)
+                res.send("kayit basarili")
                next();
               });
         }
@@ -77,7 +77,7 @@ app.post("/login",(req,res,next)=>{
         }
     
         else{
-          res.sendStatus(404)
+          res.send("kayitli degil")
           next();
         }
       })
