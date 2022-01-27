@@ -67,23 +67,25 @@ Kullanici.create({ adi: req.body.adi, soyadi: req.body.soyadi, yasi:req.body.yas
 
 app.post("/login",(req,res,next)=>{
     try{
-      Kullanici.find({eposta:req.body.eposta, sifre:req.body.sifre},(err,kullanicilar)=>{
-        if (err){
-          res.send("kayitli degil")
-          next();
-        }
-  
-          if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
-            res.send(kullanicilar)
+      Kullanici.find({eposta:req.body.eposta},(err,kullanicilar)=>{
+        if (err) throw err;
+          console.log("Gelen Degeerler = "+kullanicilar)
+          if(kullanicilar[0]){
+            if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
+              res.send(kullanicilar)
+              next();
+          }
+          else{
+            res.send("eposta veya sifre yanlis")
             next();
-        }
-      
-    
-        
+          }
+          }
+          
+          else{
+            res.send("kayitli degil")
+            next();
+          }
       })
-     
-     
-      
 
     }catch(e){
       res.sendStatus(404)
