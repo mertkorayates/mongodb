@@ -68,7 +68,10 @@ Kullanici.create({ adi: req.body.adi, soyadi: req.body.soyadi, yasi:req.body.yas
 app.post("/login",(req,res,next)=>{
     try{
       Kullanici.find({eposta:req.body.eposta, sifre:req.body.sifre},(err,kullanicilar)=>{
-        if (err) throw err;
+        if (err){
+          res.send("kayitli degil")
+          next();
+        }
   
           if(kullanicilar[0]["eposta"] == req.body.eposta && kullanicilar[0]["sifre"] == req.body.sifre ){
             res.send(kullanicilar)
@@ -79,8 +82,7 @@ app.post("/login",(req,res,next)=>{
         
       })
      
-        res.send("kayitli degil")
-        next();
+     
       
 
     }catch(e){
