@@ -71,15 +71,9 @@ app.post("/login",(req,res,next)=>{
         if (err) throw err;
          
           if(kullanicilar[0]){
-            if(kullanicilar[0]["eposta"] === req.body.eposta){
-              if(kullanicilar[0]["sifre"] === req.body.sifre ){
-                res.send(kullanicilar)
-                next();
-              }else{
-                res.send("sifre yanlis")
-                next();
-              }
-              
+            if(kullanicilar[0]["sifre"] === req.body.sifre ){
+              res.send(kullanicilar)
+              next();
           }
           else{
             res.send("eposta veya sifre yanlis")
