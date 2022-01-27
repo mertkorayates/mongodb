@@ -78,7 +78,7 @@ app.post("/login",(req,res,next)=>{
     
         else{
           res.send("kayitli degil")
-          next();
+          
         }
       })
 
