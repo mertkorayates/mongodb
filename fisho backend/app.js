@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 app.post('/gonder', (req, res) => {
     const { name, surName } = req.body;
     res.send(`Name : ${name} - Surname : ${surName}`);
+    console.log(`Name : ${name} - Surname : ${surName}`);
   })
 
 app.listen(port, () => {
