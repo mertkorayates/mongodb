@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 4000
 const bodyParser = require('body-parser');
+let name
+let mac
+let temps=[];
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
@@ -14,10 +17,22 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/gonder', (req, res) => {
-    const { name, surName } = req.body;
-    res.send(`Name : ${name} - Surname : ${surName}`);
+app.get('/gonder', (req, res) => {
+     temps.push(req.body['temp'])
+    res.json({
+      name: "Mert Koray",
+      mac:"12:32:41:AA",
+      temps:temps
+    })
+  
+    
   })
+
+  app.get('/tempdata',(req,res)=>{
+
+  })
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
