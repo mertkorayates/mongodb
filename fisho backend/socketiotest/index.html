@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+  </head>
+  <body>
+   <div id="myData"></div>
+  </body>
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+
+  var messages = document.getElementById('messages');
+
+
+  socket.on('chat message', function(msg) {
+ 
+    var mainContainer = document.getElementById("myData");
+    item.textContent = msg;
+    var deneme = JSON.stringify({
+  "offset": "0",
+  "limit": "20",
+  "endOfRecords": "true",
+  "results": [
+    
+  ]
+})
+mainContainer.appendChild(deneme);
+  });
+</script>
+</html>

@@ -17,19 +17,26 @@ app.get('/', (req, res) => {
 })
 
 
-app.get('/gonder', (req, res) => {
+app.post('/gonder', (req, res) => {
      temps.push(req.body['temp'])
+    res.json({
+      name: "Mert Koray",
+      mac:"12:32:41:AA",
+      temps:temps
+      
+    })
+    res.redirect(req.get('/tempdata'));
+  
+    
+  })
+
+  app.get('/tempdata',(req,res)=>{
     res.json({
       name: "Mert Koray",
       mac:"12:32:41:AA",
       temps:temps
     })
   
-    
-  })
-
-  app.get('/tempdata',(req,res)=>{
-
   })
 
 
