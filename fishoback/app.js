@@ -25,7 +25,7 @@ app.post('/gonder', (req, res) => {
       temps:temps
       
     })
-    res.redirect(req.get('/tempdata'));
+    
   
     
   })
@@ -41,6 +41,6 @@ app.post('/gonder', (req, res) => {
 
 
 
-app.listen(port, () => {
+app.listen(3000, () => {
   console.log(`Example app listening on port ${port}`)
 })
