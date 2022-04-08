@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-
+const http = require('http');
+const server = http.createServer(app);
 
 const io = require('socket.io')(server);
 var bodyParser = require('body-parser');
@@ -64,6 +65,6 @@ app.get("/dataquery/:UUID",(req,res)=>{
 })
 
 
-server.listen(3000, () => {
+app.listen(3000, () => {
   console.log('listening on *:3000');
 });
