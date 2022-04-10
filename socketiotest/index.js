@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-const server = http.createServer(app);
+const server = http.createServer();
 const mongoose = require('mongoose');
-const io = require('socket.io')(server);
+const { Server } = require("socket.io");
+const io = new Server(server);
 var bodyParser = require('body-parser');
-const { json } = require('express/lib/response');
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,30 +21,33 @@ let devices = new Schema({
   mac: String,
   adjTemps: String,
   manuelHeart: String,
+  socketId: String,
   temps: [String],
+
+
 });
 
 let device = mongoose.model('devices', devices);
 
 app.get('/', (req, res) => {
-
-
-
-
-
-
-
-
-
-  res.sendStatus(200);
+  res.send("deneme");
 });
 
 io.on('connection', (socket) => {
-        console.log("CONNECT")
-        socket.on("datalar",(uuid)=>{
-          console.log(`Gelen UUİD ${uuid}`)
-        })
-  });
+  socket.on("writeTemp",(msg)=>{
+
+       device.findOneAndUpdate({mac:msg.mac},{adjTemps:msg.adjTemps,manuelHeart:msg.manuelHeart,socketId:socket.id},(err,dat)=>{
+         if(err){
+           console.log(err)
+         }
+         console.log(dat)
+       })
+
+
+
+      })
+      
+});
 
 app.post("/gelen",(req,res)=>{
    // console.log(`Gelen Data = ${req.body.username}`)
@@ -69,16 +73,17 @@ app.post("/datapush",(req,res,next)=>{
      try{
       device.find({mac:req.body.MAC},(err,result)=>{
         if(result.length >= 1){
-          
+     
           device.findOneAndUpdate(result,{$push:{temps:req.body.TEMP}},(err,resx)=>{
-             
+            io.emit(resx["mac"],{temps:resx["temps"]})
+            console.log(resx)
             res.send({"adjTemps":resx["adjTemps"],"manuelHeart":resx["manuelHeart"]})
           })
          
          console.log(result[0].mac)
         } 
         else{
-          device.create({mac:req.body.MAC,adjTemps:"",manuelHeart:"",temps:[req.body.TEMP]},(err,resx)=>{
+          device.create({mac:req.body.MAC,adjTemps:"",manuelHeart:"",socketId:"",temps:[req.body.TEMP]},(err,resx)=>{
             console.log("YOKTU OLUSTURULDU")
             res.send({"adjTemps":resx["adjTemps"],"manuelHeart":resx["manuelHeart"]})
           })
@@ -109,3 +114,5 @@ app.get("/dataquery/:UUID",(req,res)=>{
 app.listen(3000, () => {
   console.log('listening on *:3000');
 });
+
+server.listen(5000)
