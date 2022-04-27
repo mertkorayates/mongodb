@@ -3,11 +3,10 @@ const app = express();
 const http = require('http');
 const server = http.createServer();
 const mongoose = require('mongoose');
-const { Server } = require("socket.io");
-const io = new Server(server);
+const io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 
-
+//const io = require("socket.io")(server);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 //mongodb://admin:Sanane914@37.148.211.44:27017/proofons?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
@@ -34,19 +33,52 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  socket.on("writeTemp",(msg)=>{
+      socket.emit("deneme","naber")
+       socket.on("writeTemp",(msg)=>{
+        console.log(msg)
+        
+          
+       /*
 
-       device.findOneAndUpdate({mac:msg.mac},{adjTemps:msg.adjTemps,manuelHeart:msg.manuelHeart,socketId:socket.id},(err,dat)=>{
+device.findOneAndUpdate({mac:msg.mac},{adjTemps:msg.adjTemps,socketId:socket.id},(err,dat)=>{
          if(err){
            console.log(err)
          }
          console.log(dat)
        })
 
+       */
+
 
 
       })
-      
+
+      socket.on("onHeart",(msg)=>{
+
+        device.findOneAndUpdate({mac:msg.mac},{manuelHeart:"11",socketId:socket.id},(err,dat)=>{
+          if(err){
+            console.log(err)
+          }
+          console.log(dat)
+        })
+ 
+ 
+ 
+       })
+
+       socket.on("offHeart",(msg)=>{
+
+        device.findOneAndUpdate({mac:msg.mac},{manuelHeart:"00",socketId:socket.id},(err,dat)=>{
+          if(err){
+            console.log(err)
+          }
+          console.log(dat)
+        })
+ 
+ 
+ 
+       })
+
 });
 
 app.post("/gelen",(req,res)=>{
@@ -74,8 +106,9 @@ app.post("/datapush",(req,res,next)=>{
       device.find({mac:req.body.MAC},(err,result)=>{
         if(result.length >= 1){
      
-          device.findOneAndUpdate(result,{$push:{temps:req.body.TEMP}},(err,resx)=>{
+          device.findOneAndUpdate({mac: result[0].mac},{$push:{temps:req.body.TEMP}},(err,resx)=>{
             io.emit(resx["mac"],{temps:resx["temps"]})
+            io.emit(`${resx["mac"]} realtime`,{temps:req.body.TEMP})
             console.log(resx)
             res.send({"adjTemps":resx["adjTemps"],"manuelHeart":resx["manuelHeart"]})
           })
