@@ -9,9 +9,8 @@ var bodyParser = require('body-parser');
 //const io = require("socket.io")(server);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
-//mongodb://admin:Sanane914@37.148.211.44:27017/proofons?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
 
-mongoose.connect('mongodb://admin:Sanane914@37.148.211.44:27017/fisho?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false', {
+mongoose.connect('', {
   useNewUrlParser: true
 }).then((gek)=>console.log(gek))
 
