@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose.connect('mongodb://admin:Sanane914@37.148.211.44:27017/fisho?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false', {
   useNewUrlParser: true
-});
+}).then((gek)=>console.log(gek))
 
 const Schema = mongoose.Schema;
 let devices = new Schema({
