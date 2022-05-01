@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
           
        
 
-device.findOneAndUpdate({mac:msg.bleUuid},{adjTemps:msg.adjTemps,socketId:socket.id},(err,dat)=>{
+device.findOneAndUpdate({bleUuid:msg.bleUuid},{adjTemps:msg.adjTemps,socketId:socket.id},(err,dat)=>{
          if(err){
            console.log(err)
          }
@@ -55,7 +55,7 @@ device.findOneAndUpdate({mac:msg.bleUuid},{adjTemps:msg.adjTemps,socketId:socket
 
       socket.on("onHeart",(msg)=>{
 
-        device.findOneAndUpdate({mac:msg.bleUuid},{manuelHeart:"11",socketId:socket.id},(err,dat)=>{
+        device.findOneAndUpdate({bleUuid:msg.bleUuid},{manuelHeart:"11",socketId:socket.id},(err,dat)=>{
           if(err){
             console.log(err)
           }
@@ -68,7 +68,7 @@ device.findOneAndUpdate({mac:msg.bleUuid},{adjTemps:msg.adjTemps,socketId:socket
 
        socket.on("offHeart",(msg)=>{
 
-        device.findOneAndUpdate({mac:msg.bleUuid},{manuelHeart:"00",socketId:socket.id},(err,dat)=>{
+        device.findOneAndUpdate({bleUuid:msg.bleUuid},{manuelHeart:"00",socketId:socket.id},(err,dat)=>{
           if(err){
             console.log(err)
           }
