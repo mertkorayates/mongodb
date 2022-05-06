@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
-//mongodb://admin:Sanane914@37.148.211.44:27017/proofons?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
+
 app.get('/', (req, res) => {
 
   res.sendStatus(200);
